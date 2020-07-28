@@ -1,5 +1,6 @@
 
 var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 const indexFile = __dirname + '/views/index.html';
 const staticFile = __dirname + '/public';
@@ -8,6 +9,14 @@ require('dotenv').config();
 
 /** 4) Serve static assets  */
 app.use(express.static(staticFile));
+
+// to handle urlencoded data
+/** Note:
+extended=false is a configuration option that tells the parser to use the classic encoding.
+When using it, values can be only strings or arrays.
+The extended version allows more data flexibility, but it is outmatched by JSON.
+*/
+app.use(bodyParser.urlencoded({extended: false}));
 
 
 // --> 7)  Mount the Logger middleware here
