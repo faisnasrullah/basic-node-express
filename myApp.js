@@ -2,6 +2,11 @@
 var express = require('express');
 var app = express();
 const indexFile = __dirname + '/views/index.html';
+const staticFile = __dirname + '/public';
+
+// Serve Static Assets
+app.use(express.static(staticFile));
+
 
 // --> 7)  Mount the Logger middleware here
 
