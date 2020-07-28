@@ -11,7 +11,13 @@ app.use(express.static(staticFile));
 
 
 // --> 7)  Mount the Logger middleware here
-
+app.use((req, res, next) => {
+	let logMethod = req.method;
+	let logPath = req.path;
+	let logIp = req.ip;
+	console.log(`${logMethod} ${logPath} - ${logIp}`);
+	next();
+});
 
 // --> 11)  Mount the body-parser middleware  here
 
@@ -50,7 +56,13 @@ app.get('/json', (req, res) => {
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
-
+// app.use((req, res, next) => {
+// 	let logMethod = req.method;
+// 	let logPath = req.path;
+// 	let logIp = req.ip;
+// 	console.log(`${logMethod} ${logPath} - ${logIp}`);
+// 	next();
+// });
 
 /** 8) Chaining middleware. A Time server */
 
