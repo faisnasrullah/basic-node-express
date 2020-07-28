@@ -4,7 +4,9 @@ var app = express();
 const indexFile = __dirname + '/views/index.html';
 const staticFile = __dirname + '/public';
 
-// Serve Static Assets
+require('dotenv').config();
+
+/** 4) Serve static assets  */
 app.use(express.static(staticFile));
 
 
@@ -27,16 +29,24 @@ app.get('/', (req, res) => {
 	res.sendFile(indexFile);
 });
 
-/** 4) Serve static assets  */
-
 
 /** 5) serve JSON on a specific route */
-app.get('/json', (req, res) => {
-	res.json({ "message": "Hello json" });
-});
+// app.get('/json', (req, res) => {
+// 	res.json({ "message": "Hello json" });
+// });
 
 /** 6) Use the .env file to configure the app */
- 
+let messageObject = {"message": "Hello json"};
+
+app.get('/json', (req, res) => {
+	if (process.env.MESSAGE_STYLE === 'uppercase') {
+		let data = JSON.parse(JSON.stringify(messageObject));
+		data.message = data.message.toUpperCase();
+		return res.json(data);
+	} else {
+		return res.json(messageObject);
+	}
+});
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
