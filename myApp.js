@@ -1,6 +1,7 @@
 
 var express = require('express');
 var app = express();
+const indexFile = __dirname + '/views/index.html';
 
 // --> 7)  Mount the Logger middleware here
 
@@ -12,12 +13,14 @@ var app = express();
 console.log("Hello World");
 
 /** 2) A first working Express Server */
-app.get('/', (req, res) => {
-	res.send("Hello Express");
-});
+// app.get('/', (req, res) => {
+// 	res.send("Hello Express");
+// });
 
 /** 3) Serve an HTML file */
-
+app.get('/', (req, res) => {
+	res.sendFile(indexFile);
+});
 
 /** 4) Serve static assets  */
 
